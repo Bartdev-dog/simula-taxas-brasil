@@ -1,0 +1,42 @@
+{
+  "Shopee": [
+    {
+      "title": "Vestido Estilo",
+      "price_brl": 129,
+      "img": "https://via.placeholder.com/400x260?text=Vestido",
+      "url": "https://s.shopee.com.br/3qERZiYxrv"
+    },
+    {
+      "title": "Fone Bluetooth",
+      "price_brl": 79,
+      "img": "https://via.placeholder.com/400x260?text=Fone",
+      "url": "https://s.shopee.com.br/5VMfYq4w8H"
+    },
+    {
+      "title": "Rel\u00f3gio Inteligente",
+      "price_brl": 188,
+      "img": "https://via.placeholder.com/400x260?text=Relogio",
+      "url": "https://s.shopee.com.br/40XrmDP5DK"
+    },
+    {
+      "title": "T\u00eanis Bege",
+      "price_brl": 199,
+      "img": "https://via.placeholder.com/400x260?text=Tenis",
+      "url": "https://s.shopee.com.br/1BDgP52yzt"
+    }
+  ],
+  "Shein": [
+    {
+      "title": "Vestido Floral",
+      "price_brl": 99,
+      "img": "https://via.placeholder.com/400x260?text=Shein+Vestido",
+      "url": "https://www.shein.com"
+    },
+    {
+      "title": "Blusa Casual",
+      "price_brl": 59,
+      "img": "https://via.placeholder.com/400x260?text=Shein+Blusa",
+      "url": "https://www.shein.com"
+    }
+  ]
+}
