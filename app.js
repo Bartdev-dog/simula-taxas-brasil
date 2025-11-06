@@ -42,31 +42,12 @@ function parseBRLString(str){
 
 // máscara de input BRL (formatação ao digitar)
 function setupBRLInputMask(inputEl){
-  inputEl.addEventListener('input', (e)=>{
-    let raw = inputEl.value;
-    // remove caracteres não numéricos, exceto vírgula e ponto
-    raw = raw.replace(/[^0-9,\\.]/g, '');
-    // substitui vírgula por ponto para facilitar parse
-    let normalized = raw.replace(/,/g, '.');
-    // tenta converter para número
-    let num = parseFloat(normalized);
-    if (isNaN(num)) {
-      inputEl.value = '';
-      return;
-    }
-    // formata corretamente com separador de milhar e duas casas
-    inputEl.value = num.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-  });
-
-  // ao sair do campo, garante formatação final
   inputEl.addEventListener('blur', ()=>{
-    const n = parseBRLString(inputEl.value);
-    if(!isNaN(n)){
-      inputEl.value = formatBRLvalueFromNumber(n);
-    }
+    const val = parseBRLString(inputEl.value);
+    if(isNaN(val) || val === 0) return;
+    inputEl.value = formatBRLvalueFromNumber(val);
   });
 }
-
 
 function showModal(text){
   const modal = document.getElementById('modal');
