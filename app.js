@@ -85,7 +85,36 @@ function calculateFromUSD(totalUsd, cotacao, icmsRate){
   return {valorBRL, aliquota, impostoImportacaoBRL, icms, total};
 }
 
-document.addEventListener('DOMContentLoaded', async ()=> {
+  document.addEventListener('DOMContentLoaded', async ()=> {
+  await updateRateToInput()
+
+
+ // 🔽 Carregar promoções dinamicamente
+  try {
+    const response = await fetch('promocoes.json');
+    if (!response.ok) throw new Error('Erro ao carregar promoções');
+    const data = await response.json();
+
+    const promocoesContainer = document.getElementById('promocoes');
+    if (promocoesContainer) {
+      promocoesContainer.innerHTML = '';
+      data.forEach(p => {
+        const card = document.createElement('div');
+        card.classList.add('promo-card');
+        card.innerHTML = `
+          <img src="${p.imagem}" alt="${p.titulo}" class="promo-img">
+          <h3>${p.titulo}</h3>
+          <p>${p.preco}</p>
+          <a href="${p.link}" target="_blank" class="promo-btn">Ver na ${p.loja}</a>
+        `;
+        promocoesContainer.appendChild(card);
+      });
+    }
+  } catch (error) {
+    console.error('Erro ao carregar promoções:', error);
+  }
+
+    
   const brlEl = document.getElementById('brl') || document.getElementById('valor'); // nome varia
   const freteBrlEl = document.getElementById('frete_brl');
   const cotacaoEl = document.getElementById('cotacao');
@@ -128,12 +157,12 @@ document.addEventListener('DOMContentLoaded', async ()=> {
   }
 
   populateStates();
-  await updateRateToInput();
+ domcontent
 
   if(refreshBtn) refreshBtn.addEventListener('click', async ()=>{
     refreshBtn.disabled = true;
     refreshBtn.textContent = 'Atualizando...';
-    await updateRateToInput();
+   domcontent
     refreshBtn.disabled = false;
     refreshBtn.textContent = 'Atualizar dólar';
   });
