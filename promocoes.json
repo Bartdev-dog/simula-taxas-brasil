@@ -1,0 +1,37 @@
+[
+  {
+    "titulo": "Tênis esportivo casual",
+    "preco": "R$ 99,90",
+    "imagem": "https://cf.shopee.com.br/file/sg-11134201-23030-w5tzyjzyjzlv66",
+    "link": "https://s.shopee.com.br/3qERZiYxrv",
+    "loja": "Shopee"
+  },
+  {
+    "titulo": "Camisa básica algodão premium",
+    "preco": "R$ 89,90",
+    "imagem": "https://cf.shopee.com.br/file/br-11134207-7r98s-lsahb1cn8wovf9",
+    "link": "https://s.shopee.com.br/5VMfYq4w8H",
+    "loja": "Shopee"
+  },
+  {
+    "titulo": "Bolsa transversal feminina",
+    "preco": "R$ 109,90",
+    "imagem": "https://cf.shopee.com.br/file/br-11134207-7r98o-lv3uh3o1oydz37",
+    "link": "https://s.shopee.com.br/40XrmDP5DK",
+    "loja": "Shopee"
+  },
+  {
+    "titulo": "Conjunto fitness feminino",
+    "preco": "R$ 79,90",
+    "imagem": "https://cf.shopee.com.br/file/sg-11134201-23030-2b3v8v7ltzlv52",
+    "link": "https://s.shopee.com.br/1BDgP52yzt",
+    "loja": "Shopee"
+  },
+  {
+    "titulo": "Vestido estampado verão",
+    "preco": "R$ 99,00",
+    "imagem": "https://cf.shopee.com.br/file/sg-11134201-23020-w8t8m89i4zlv35",
+    "link": "#",
+    "loja": "SHEIN"
+  }
+]
