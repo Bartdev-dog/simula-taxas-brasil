@@ -39,36 +39,34 @@ function parseBRLString(str){
   return isNaN(n) ? 0 : n;
 }
 
+
 // máscara de input BRL (formatação ao digitar)
 function setupBRLInputMask(inputEl){
-  function formatToBRL(valueStr){
-    // tira tudo que não é dígito
-    const digits = valueStr.replace(/\D/g,'');
-    if(digits.length === 0) return '';
-    // garante ao menos 3 dígitos para manipular centavos
-    const cents = digits.slice(-2);
-    const intPart = digits.slice(0, -2) || '0';
-    // formata intPart com pontos
-    const intFormatted = parseInt(intPart,10).toLocaleString('pt-BR');
-    return `${intFormatted},${cents.padStart(2,'0')}`;
-  }
-
   inputEl.addEventListener('input', (e)=>{
-    const cursorPos = inputEl.selectionStart;
-    const raw = inputEl.value;
-    const formatted = formatToBRL(raw);
-    inputEl.value = formatted;
-    // tenta preservar posição do cursor (simples)
-    inputEl.setSelectionRange(inputEl.value.length, inputEl.value.length);
+    let raw = inputEl.value;
+    // remove caracteres não numéricos, exceto vírgula e ponto
+    raw = raw.replace(/[^0-9,\\.]/g, '');
+    // substitui vírgula por ponto para facilitar parse
+    let normalized = raw.replace(/,/g, '.');
+    // tenta converter para número
+    let num = parseFloat(normalized);
+    if (isNaN(num)) {
+      inputEl.value = '';
+      return;
+    }
+    // formata corretamente com separador de milhar e duas casas
+    inputEl.value = num.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
   });
 
-  // quando perder foco, se vazio, limpa; senão garante 2 casas
+  // ao sair do campo, garante formatação final
   inputEl.addEventListener('blur', ()=>{
-    if(!inputEl.value) return;
     const n = parseBRLString(inputEl.value);
-    inputEl.value = formatBRLvalueFromNumber(n);
+    if(!isNaN(n)){
+      inputEl.value = formatBRLvalueFromNumber(n);
+    }
   });
 }
+
 
 function showModal(text){
   const modal = document.getElementById('modal');
