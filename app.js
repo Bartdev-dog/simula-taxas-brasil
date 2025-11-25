@@ -37,13 +37,29 @@ function parseBRLString(str) {
 }
 
 function setupBRLInputMask(inputEl) {
+  inputEl.addEventListener('input', () => {
+    let raw = inputEl.value.replace(/[^\d]/g, "");
+
+    if (!raw) {
+      inputEl.value = "";
+      return;
+    }
+
+    while (raw.length < 3) raw = "0" + raw;
+
+    let cents = raw.slice(-2);
+    let reais = raw.slice(0, -2).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
+    inputEl.value = `${reais},${cents}`;
+  });
+
   inputEl.addEventListener('blur', () => {
-    const val = parseBRLString(inputEl.value);
-    if (isNaN(val) || val === 0) return;
-    inputEl.value = formatBRLvalueFromNumber(val);
+    if (!inputEl.value.includes(",")) {
+      inputEl.value += ",00";
+    }
   });
 }
-
+  
 function showModal(text) {
   const modal = document.getElementById('modal');
   const modalText = document.getElementById('modalText');
@@ -98,6 +114,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // 🔽 Carregar promoções dinamicamente
   try {
+    if (!cotacaoEl.value || parseFloat(cotacaoEl.value) <= 0) await updateRateToInput();
     const response = await fetch('promocoes.json');
     if (!response.ok) throw new Error('Erro ao carregar promoções');
     const data = await response.json();
@@ -109,7 +126,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         const card = document.createElement('div');
         card.classList.add('promo-card');
         card.innerHTML = `
-          <img src="${p.imagem}" alt="${p.titulo}" class="promo-img">
+  <img src="${p.imagem}" 
+       alt="${p.titulo}" 
+       class="promo-img" 
+       crossorigin="anonymous" 
+       referrerpolicy="no-referrer">
           <h3>${p.titulo}</h3>
           <p>${p.preco}</p>
           <a href="${p.link}" target="_blank" class="promo-btn">Ver na ${p.loja}</a>
