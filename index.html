@@ -3,155 +3,141 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simula Taxas Brasil V5</title>
+  <title>Simula Taxas Brasil V6</title>
   <link rel="stylesheet" href="style.css">
-
-  <!-- CSS específico do card de cotação -->
-  <style>
-    /* Caixa de cotação dentro do simulador */
-    .cotacao-card {
-        background: rgba(255,255,255,0.06);
-        border: 1px solid rgba(255,255,255,0.12);
-        padding: 15px 18px;
-        border-radius: 12px;
-        margin-bottom: 20px;
-        backdrop-filter: blur(8px);
-    }
-
-    .cotacao-card p {
-        margin: 0 0 10px 0;
-        font-size: 14px;
-        color: #e0e0e0;
-    }
-
-    #refreshRate {
-        width: 100%;
-        padding: 10px;
-        background: #6ab7ff;
-        color: #000;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        font-weight: 600;
-        transition: 0.2s ease;
-    }
-
-    #refreshRate:hover {
-        background: #90cbff;
-    }
-  </style>
 </head>
 
-<body class="dark-theme">
+<body>
 
-  <header>
-    <h1>Simula Taxas Brasil</h1>
-    <p>Descubra o custo real da sua compra internacional antes de finalizar.</p>
+  <!-- ====================== TOPBAR ====================== -->
+  <header class="topbar">
+    <div class="container">
+      <h1>Simula Taxas Brasil</h1>
+      <p class="tagline">Descubra o custo real antes de finalizar sua compra internacional.</p>
+    </div>
   </header>
 
-  <section id="como-funciona">
-    <h2>Como funciona</h2>
-    <div class="steps">
-      <div><span>1️⃣</span> Insira o valor do produto</div>
-      <div><span>2️⃣</span> Escolha o estado de destino</div>
-      <div><span>3️⃣</span> Veja o valor total com taxas e impostos</div>
-    </div>
-  </section>
+  <div class="container">
 
-  <main>
-    <div id="simulador">
-      <h3>Simulador de Taxas</h3>
+    <!-- ====================== COMO FUNCIONA ====================== -->
+    <section class="card">
+      <h2>Como funciona</h2>
+      <div class="steps">
+        <p>1️⃣ Insira o valor do produto</p>
+        <p>2️⃣ Escolha o estado de destino</p>
+        <p>3️⃣ Veja o valor total com taxas e impostos</p>
+      </div>
+    </section>
 
-      <!-- NOVO CARD DE COTAÇÃO -->
+    <!-- ====================== SIMULADOR ====================== -->
+    <section class="card simulator">
+
+      <h2>Simulador de Taxas</h2>
+
+      <!-- ====== COTAÇÃO ====== -->
       <div id="cotacaoBox" class="cotacao-card">
         <p id="infoCotacao">Carregando cotação...</p>
-        <button id="refreshRate">Atualizar cotação</button>
+        <button id="refreshRate" class="btn primary">Atualizar cotação</button>
       </div>
 
+      <!-- ====== INPUT VALOR ====== -->
       <label>Valor do pedido (R$)</label>
-      <input type="text" id="valor" placeholder="Ex: 200,00">
+      <div class="row">
+        <input type="text" id="valor" placeholder="Ex: 200,00">
+        <button id="uploadFoto" class="btn">📷</button>
+        <input type="file" id="fotoInput" accept="image/*" hidden>
+      </div>
 
-      <button id="uploadFoto">📷</button>
-      <input type="file" id="fotoInput" accept="image/*" hidden>
-
+      <!-- ====== ESTADO ====== -->
       <label>Estado de destino</label>
-      <select id="estado"></select>
+      <div class="row">
+        <select id="estado"></select>
+      </div>
 
-      <button id="calcular">Calcular</button>
+      <div class="actions">
+        <button id="calcular" class="btn primary">Calcular</button>
+      </div>
 
-      <div id="resultado"></div>
-    </div>
+      <div id="resultado" class="result"></div>
 
-    <aside id="promocoes">
-      <h3>Ofertas & Promoções</h3>
-      <div class="card"><img src="img1.jpg"><p>Produto 1 - R$99,90</p><a href="https://s.shopee.com.br/3qERZiYxrv" target="_blank">Ver na Shopee</a></div>
-      <div class="card"><img src="img2.jpg"><p>Produto 2 - R$89,90</p><a href="https://s.shopee.com.br/5VMfYq4w8H" target="_blank">Ver na Shopee</a></div>
-      <div class="card"><img src="img3.jpg"><p>Produto 3 - R$109,90</p><a href="https://s.shopee.com.br/40XrmDP5DK" target="_blank">Ver na Shopee</a></div>
-      <div class="card"><img src="img4.jpg"><p>Produto 4 - R$79,90</p><a href="https://s.shopee.com.br/1BDgP52yzt" target="_blank">Ver na Shopee</a></div>
-      <div class="card"><img src="img5.jpg"><p>Produto 5 - R$99,00</p><a href="#">Ver na SHEIN</a></div>
-    </aside>
-  </main>
+    </section>
 
-  <footer>
-    <p>© 2025 Simula Taxas Brasil | Valores estimados com base nas taxas vigentes.</p>
+    <!-- ====================== OFERTAS ====================== -->
+    <section class="card offers">
+      <h2>Ofertas & Promoções</h2>
+
+      <div id="promoContainer" class="cards">
+        <!-- Os cards serão carregados via app.js -->
+      </div>
+    </section>
+
+    <!-- ====================== FORMULÁRIO DE FEEDBACK ====================== -->
+    <section class="card" id="feedbackSection">
+      <h2>💭 Deixe seu feedback</h2>
+      <p class="muted">
+        Queremos saber o que você achou do nosso site!  
+        Sua opinião é essencial para continuarmos evoluindo. ✨
+      </p>
+
+      <form action="https://formspree.io/f/xkgqyrjy" method="POST" id="feedbackForm">
+
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" placeholder="Digite seu nome" required>
+
+        <label for="mensagem">Mensagem:</label>
+        <textarea id="mensagem" name="mensagem" rows="5"
+          placeholder="Conte sua opinião, sugestões ou melhorias!" required></textarea>
+
+        <button type="submit" class="btn primary" style="width:100%;">Enviar feedback</button>
+      </form>
+
+      <p id="agradecimento" style="display:none;color:#4ade80;margin-top:10px;font-weight:600;">
+        Obrigada por contribuir para a melhoria constante do site! 💚
+      </p>
+    </section>
+
+  </div>
+
+  <!-- ====================== FOOTER ====================== -->
+  <footer class="footer">
+    © 2025 Simula Taxas Brasil — Valores estimados com base nas taxas vigentes.
   </footer>
 
+
+  <!-- ====================== SCRIPTS ====================== -->
   <script src="https://cdn.jsdelivr.net/npm/tesseract.js@2.1.4/dist/tesseract.min.js"></script>
-  <script src="app.js"></script>
-
-  <!-- ====== FORMULÁRIO DE FEEDBACK ====== -->
-  <section style="max-width:600px;margin:50px auto;background:#f9f9f9;padding:30px;border-radius:12px;box-shadow:0 0 10px rgba(0,0,0,0.1);">
-    <h2 style="text-align:center;color:#333;">💭 Deixe seu feedback</h2>
-    <p style="text-align:center;color:#555;font-size:16px;margin-bottom:20px;">
-      Queremos saber o que você achou do nosso site! ✨<br>
-      Sua opinião é muito importante para melhorarmos continuamente.
-    </p>
-
-    <form action="https://formspree.io/f/xkgqyrjy" method="POST" id="feedbackForm">
-      <label for="nome" style="display:block;font-weight:bold;margin-top:10px;">Nome:</label>
-      <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" required
-             style="width:100%;padding:10px;border-radius:6px;border:1px solid:#ccc;margin-bottom:15px;">
-
-      <label for="mensagem" style="display:block;font-weight:bold;margin-top:10px;">Mensagem:</label>
-      <textarea id="mensagem" name="mensagem" rows="5" placeholder="Conte o que achou do site, sugestões ou elogios!" required
-                style="width:100%;padding:10px;border-radius:6px;border:1px solid:#ccc;margin-bottom:15px;"></textarea>
-
-      <button type="submit"
-              style="width:100%;background:#007bff;color:white;font-weight:bold;padding:12px;border:none;border-radius:6px;cursor:pointer;">
-        Enviar feedback
-      </button>
-    </form>
-
-    <p id="agradecimento" style="display:none;text-align:center;color:green;margin-top:15px;font-weight:bold;">
-      Obrigada por contribuir para a melhoria constante do nosso site! 💚
-    </p>
-  </section>
 
   <script>
+    /* ================================
+       MENSAGEM DE AGRADECIMENTO FEEDBACK
+    ================================== */
     const form = document.getElementById("feedbackForm");
-    const agradecimento = document.getElementById("agradecimento");
+    const msg = document.getElementById("agradecimento");
 
-    form.addEventListener("submit", function(event) {
-      event.preventDefault();
-      const data = new FormData(form);
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
 
       fetch(form.action, {
         method: "POST",
-        body: data,
-        headers: { 'Accept': 'application/json' }
-      }).then(response => {
-        if (response.ok) {
-          agradecimento.style.display = "block";
+        body: new FormData(form),
+        headers: { "Accept": "application/json" }
+      })
+      .then(r => {
+        if (r.ok) {
+          msg.style.display = "block";
           form.reset();
         } else {
-          alert("Erro ao enviar feedback 😢 Tente novamente mais tarde.");
+          alert("Erro ao enviar. Tente novamente mais tarde.");
         }
-      }).catch(error => {
-        alert("Ocorreu um erro. Por favor, tente novamente mais tarde.");
-        console.error(error);
+      })
+      .catch(() => {
+        alert("Erro ao enviar. Tente novamente mais tarde.");
       });
     });
   </script>
 
+  <script src="app.js"></script>
+
 </body>
 </html>
+``
