@@ -98,7 +98,6 @@ function calculateFromUSD(totalUsd, cotacao, icmsRate) {
 
 // Cotação inicial
 async function updateRateToInput() {
-  const cotacaoEl = document.getElementById('cotacao');
   const rate = await fetchDollar();
   if (rate) {
     if (cotacaoEl) cotacaoEl.value = rate.toFixed(4);
@@ -144,7 +143,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const brlEl = document.getElementById('brl') || document.getElementById('valor');
   const freteBrlEl = document.getElementById('frete_brl');
-  const cotacaoEl = document.getElementById('cotacao');
   const estadoEl = document.getElementById('estado');
   const calcBtn = document.getElementById('calcular');
   const resetBtn = document.getElementById('reset');
