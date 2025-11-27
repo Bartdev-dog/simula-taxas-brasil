@@ -5,8 +5,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Simula Taxas Brasil V5</title>
   <link rel="stylesheet" href="style.css">
+
+  <!-- CSS específico do card de cotação -->
+  <style>
+    /* Caixa de cotação dentro do simulador */
+    .cotacao-card {
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.12);
+        padding: 15px 18px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+        backdrop-filter: blur(8px);
+    }
+
+    .cotacao-card p {
+        margin: 0 0 10px 0;
+        font-size: 14px;
+        color: #e0e0e0;
+    }
+
+    #refreshRate {
+        width: 100%;
+        padding: 10px;
+        background: #6ab7ff;
+        color: #000;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: 0.2s ease;
+    }
+
+    #refreshRate:hover {
+        background: #90cbff;
+    }
+  </style>
 </head>
+
 <body class="dark-theme">
+
   <header>
     <h1>Simula Taxas Brasil</h1>
     <p>Descubra o custo real da sua compra internacional antes de finalizar.</p>
@@ -24,14 +61,22 @@
   <main>
     <div id="simulador">
       <h3>Simulador de Taxas</h3>
+
+      <!-- NOVO CARD DE COTAÇÃO -->
+      <div id="cotacaoBox" class="cotacao-card">
+        <p id="infoCotacao">Carregando cotação...</p>
+        <button id="refreshRate">Atualizar cotação</button>
+      </div>
+
       <label>Valor do pedido (R$)</label>
       <input type="text" id="valor" placeholder="Ex: 200,00">
+
       <button id="uploadFoto">📷</button>
       <input type="file" id="fotoInput" accept="image/*" hidden>
-      
+
       <label>Estado de destino</label>
       <select id="estado"></select>
-      
+
       <button id="calcular">Calcular</button>
 
       <div id="resultado"></div>
@@ -51,64 +96,62 @@
     <p>© 2025 Simula Taxas Brasil | Valores estimados com base nas taxas vigentes.</p>
   </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/tesseract.js@2.1.4/dist/tesseract.min.js"></script>
-<script src="app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@2.1.4/dist/tesseract.min.js"></script>
+  <script src="app.js"></script>
 
-    
-<!-- ====== FORMULÁRIO DE FEEDBACK ====== -->
-<section style="max-width:600px;margin:50px auto;background:#f9f9f9;padding:30px;border-radius:12px;box-shadow:0 0 10px rgba(0,0,0,0.1);">
-  <h2 style="text-align:center;color:#333;">💭 Deixe seu feedback</h2>
-  <p style="text-align:center;color:#555;font-size:16px;margin-bottom:20px;">
-    Queremos saber o que você achou do nosso site! ✨<br>
-    Sua opinião é muito importante para melhorarmos continuamente.
-  </p>
+  <!-- ====== FORMULÁRIO DE FEEDBACK ====== -->
+  <section style="max-width:600px;margin:50px auto;background:#f9f9f9;padding:30px;border-radius:12px;box-shadow:0 0 10px rgba(0,0,0,0.1);">
+    <h2 style="text-align:center;color:#333;">💭 Deixe seu feedback</h2>
+    <p style="text-align:center;color:#555;font-size:16px;margin-bottom:20px;">
+      Queremos saber o que você achou do nosso site! ✨<br>
+      Sua opinião é muito importante para melhorarmos continuamente.
+    </p>
 
-  <form action="https://formspree.io/f/xkgqyrjy" method="POST" id="feedbackForm">
-    <label for="nome" style="display:block;font-weight:bold;margin-top:10px;">Nome:</label>
-    <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" required
-           style="width:100%;padding:10px;border-radius:6px;border:1px solid #ccc;margin-bottom:15px;">
+    <form action="https://formspree.io/f/xkgqyrjy" method="POST" id="feedbackForm">
+      <label for="nome" style="display:block;font-weight:bold;margin-top:10px;">Nome:</label>
+      <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" required
+             style="width:100%;padding:10px;border-radius:6px;border:1px solid:#ccc;margin-bottom:15px;">
 
-    <label for="mensagem" style="display:block;font-weight:bold;margin-top:10px;">Mensagem:</label>
-    <textarea id="mensagem" name="mensagem" rows="5" placeholder="Conte o que achou do site, sugestões ou elogios!" required
-              style="width:100%;padding:10px;border-radius:6px;border:1px solid #ccc;margin-bottom:15px;"></textarea>
+      <label for="mensagem" style="display:block;font-weight:bold;margin-top:10px;">Mensagem:</label>
+      <textarea id="mensagem" name="mensagem" rows="5" placeholder="Conte o que achou do site, sugestões ou elogios!" required
+                style="width:100%;padding:10px;border-radius:6px;border:1px solid:#ccc;margin-bottom:15px;"></textarea>
 
-    <button type="submit"
-            style="width:100%;background:#007bff;color:white;font-weight:bold;padding:12px;border:none;border-radius:6px;cursor:pointer;">
-      Enviar feedback
-    </button>
-  </form>
+      <button type="submit"
+              style="width:100%;background:#007bff;color:white;font-weight:bold;padding:12px;border:none;border-radius:6px;cursor:pointer;">
+        Enviar feedback
+      </button>
+    </form>
 
-  <p id="agradecimento" style="display:none;text-align:center;color:green;margin-top:15px;font-weight:bold;">
-    Obrigada por contribuir para a melhoria constante do nosso site! 💚
-  </p>
-</section>
+    <p id="agradecimento" style="display:none;text-align:center;color:green;margin-top:15px;font-weight:bold;">
+      Obrigada por contribuir para a melhoria constante do nosso site! 💚
+    </p>
+  </section>
 
-<!-- ====== SCRIPT PARA MENSAGEM DE AGRADECIMENTO ====== -->
-<script>
-  const form = document.getElementById("feedbackForm");
-  const agradecimento = document.getElementById("agradecimento");
+  <script>
+    const form = document.getElementById("feedbackForm");
+    const agradecimento = document.getElementById("agradecimento");
 
-  form.addEventListener("submit", function(event) {
-    event.preventDefault();
-    const data = new FormData(form);
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+      const data = new FormData(form);
 
-    fetch(form.action, {
-      method: "POST",
-      body: data,
-      headers: { 'Accept': 'application/json' }
-    }).then(response => {
-      if (response.ok) {
-        agradecimento.style.display = "block";
-        form.reset();
-      } else {
-        alert("Erro ao enviar feedback 😢 Tente novamente mais tarde.");
-      }
-    }).catch(error => {
-      alert("Ocorreu um erro. Por favor, tente novamente mais tarde.");
-      console.error(error);
+      fetch(form.action, {
+        method: "POST",
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      }).then(response => {
+        if (response.ok) {
+          agradecimento.style.display = "block";
+          form.reset();
+        } else {
+          alert("Erro ao enviar feedback 😢 Tente novamente mais tarde.");
+        }
+      }).catch(error => {
+        alert("Ocorreu um erro. Por favor, tente novamente mais tarde.");
+        console.error(error);
+      });
     });
-  });
-</script>
+  </script>
 
 </body>
 </html>
